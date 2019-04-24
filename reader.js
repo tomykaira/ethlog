@@ -1,11 +1,11 @@
 var Web3 = require('web3');
-var web3 = new Web3("ws://localhost:7545");
+var web3 = new Web3("wss://ropsten.infura.io/ws");
 
 //simplestorageのABI
 var abi = require('./build/contracts/EthLog.json');
 
 //デプロイしたアドレス
-var address = abi.networks['5777'].address;
+var address = abi.networks['3'].address;
 const ethLog = new web3.eth.Contract(abi.abi, address, {});
 
 ethLog.getPastEvents("allEvents", {fromBlock: 0}).then((events) => {
