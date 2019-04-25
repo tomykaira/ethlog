@@ -1,8 +1,10 @@
 var Web3 = require('web3');
 
+const config = require('./.secret.json');
+
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const fs = require('fs');
-const mnemonic = fs.readFileSync(".secret").toString().trim();
+const mnemonic = config.mnemonic.trim();
 const provider = new HDWalletProvider(mnemonic, '');
 
 let privateKey = '';
@@ -21,7 +23,7 @@ var abi = require('./build/contracts/EthLog.json');
 const ethLog = new web3.eth.Contract(abi.abi, abi.networks['3'].address);
 
 const input = require('fs').readFileSync('/dev/stdin', 'utf8').toString().trim();
-return say(web3.eth.defaultAccount, "tomy", input);
+return say(web3.eth.defaultAccount, config.username, input);
 
 async function say(address, nick, body) {
 	const hex = web3.utils.asciiToHex(nick);

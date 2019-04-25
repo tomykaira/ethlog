@@ -8,7 +8,14 @@ Create wallet and receive ropsten ethereum.
 Metamask is quick way to setup.
 https://blog.bankex.org/how-to-buy-ethereum-using-metamask-ccea0703daec
 
-Save the mnemonic shown while wallet setup as `.secret`.
+Save your username and the mnemonic shown while wallet setup as `.secret.json`.
+
+```json
+{
+    "username": "tomy",
+    "mnemonic": "apple banana cat bla bla bla"
+}
+```
 
 Open sender.js and change `tomy` to your name.
 Name is ascii only, up to 32 bytes.
