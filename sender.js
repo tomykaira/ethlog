@@ -29,5 +29,12 @@ async function say(address, nick, body) {
 	if (current != hex) {
 		ethLog.methods.introduce(hex).send({ from: address, gasLimit: "47000" })
 	}
-	ethLog.methods.say(body).send({ from: address, gasLimit: "47000" });
+	ethLog.methods.say(body).send({ from: address, gasLimit: "47000" }, (err) => {
+		if (err) {
+			console.warn(err);
+		} else {
+			console.log("OK");
+		}
+		process.exit();
+	});
 }
