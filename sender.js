@@ -20,7 +20,7 @@ web3.eth.accounts.wallet.add('0x' + privateKey.toString('hex'));
 var abi = require('./build/contracts/EthLog.json');
 const ethLog = new web3.eth.Contract(abi.abi, abi.networks['3'].address);
 
-const input = require('fs').readFileSync('/dev/stdin', 'utf8');
+const input = require('fs').readFileSync('/dev/stdin', 'utf8').toString().trim();
 return say(web3.eth.defaultAccount, "tomy", input);
 
 async function say(address, nick, body) {
@@ -29,7 +29,7 @@ async function say(address, nick, body) {
 	if (current != hex) {
 		ethLog.methods.introduce(hex).send({ from: address, gasLimit: "47000" })
 	}
-	ethLog.methods.say(body).send({ from: address, gasLimit: "47000" }, (err) => {
+	ethLog.methods.say(body).send({ from: address, gasLimit: "470000" }, (err) => {
 		if (err) {
 			console.warn(err);
 		} else {
