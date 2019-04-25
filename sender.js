@@ -27,11 +27,18 @@ return say(web3.eth.defaultAccount, config.username, input);
 
 async function say(address, nick, body) {
 	const hex = web3.utils.asciiToHex(nick);
+	var nonce = 0;
+	if (fs.existsSync(".secret.nonce")) {
+		nonce = fs.readFileSync(".secret.nonce").toString().trim() | 0;
+	}
+	if (!nonce) {
+		nonce = await web3.eth.getTransactionCount(address);
+	}
 	const current = await ethLog.methods.getNickname(address).call();
 	if (current != hex) {
-		ethLog.methods.introduce(hex).send({ from: address, gasLimit: "47000" })
+		ethLog.methods.introduce(hex).send({ from: address, gasLimit: "47000", nonce: nonce++ })
 	}
-	ethLog.methods.say(body).send({ from: address, gasLimit: "470000" }, (err) => {
+	ethLog.methods.say(body).send({ from: address, gasLimit: "470000", nonce: nonce++ }, (err) => {
 		if (err) {
 			console.warn(err);
 		} else {
@@ -39,4 +46,5 @@ async function say(address, nick, body) {
 		}
 		process.exit();
 	});
+	fs.writeFileSync(".secret.nonce", nonce.toString());
 }
