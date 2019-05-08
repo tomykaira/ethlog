@@ -8,7 +8,8 @@ Create wallet and receive ropsten ethereum.
 Metamask is quick way to setup.
 https://blog.bankex.org/how-to-buy-ethereum-using-metamask-ccea0703daec
 
-Save your username and the mnemonic shown while wallet setup as `.secret.json`.
+Save your username and the mnemonic (or "wallet seed") shown while wallet setup as `.secret.json`.
+The username is ascii only, up to 32 bytes.
 
 ```json
 {
@@ -17,24 +18,15 @@ Save your username and the mnemonic shown while wallet setup as `.secret.json`.
 }
 ```
 
-Open sender.js and change `tomy` to your name.
-Name is ascii only, up to 32 bytes.
-
-```
-- return say(web3.eth.defaultAccount, "tomy", input);
-+ return say(web3.eth.defaultAccount, "<yourname>", input);
-```
-
 Then, run reader.js. Past posts will be soon shown.
 
-
-```
+```sh
 node reader.js
 ```
 
 In order to speak something, run `sender.js` with STDIN.
 
-```
+```sh
 node sender.js <<< "Hello ETH!"
 ```
 
